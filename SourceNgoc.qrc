@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/add.png</file>
+        <file>Images/cancel.png</file>
+        <file>Images/delete.png</file>
+        <file>Images/new.png</file>
+        <file>Images/open.png</file>
+        <file>Images/page_add.png</file>
+        <file>Images/page_delete.png</file>
+        <file>Images/page_error.png</file>
+        <file>Images/page_refresh.png</file>
+        <file>Images/pencil.png</file>
+        <file>Images/pencil_add.png</file>
+        <file>Images/pencil_delete.png</file>
+        <file>Images/pencil_go.png</file>
+        <file>Images/save.png</file>
+        <file>Images/save_as.png</file>
+    </qresource>
+</RCC>

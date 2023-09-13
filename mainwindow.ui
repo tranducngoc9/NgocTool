@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="mouseControl">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>180</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mouse</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuItems">
+    <property name="title">
+     <string>Items</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionRemove"/>
+    <addaction name="actionClear"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="actionSelect_None"/>
+   </widget>
+   <widget class="QMenu" name="menuChecked">
+    <property name="title">
+     <string>State</string>
+    </property>
+    <addaction name="actionChecked"/>
+    <addaction name="actionUnchecked"/>
+    <addaction name="actionParticually"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuItems"/>
+   <addaction name="menuChecked"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionSave_As"/>
+   <addaction name="actionExit"/>
+   <addaction name="actionAdd"/>
+   <addaction name="actionRemove"/>
+   <addaction name="actionClear"/>
+   <addaction name="actionSelect_All"/>
+   <addaction name="actionSelect_None"/>
+   <addaction name="actionUnchecked"/>
+   <addaction name="actionParticually"/>
+   <addaction name="actionChecked"/>
+  </widget>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/new.png</normaloff>:/Images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/open.png</normaloff>:/Images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/save.png</normaloff>:/Images/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/save_as.png</normaloff>:/Images/save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/cancel.png</normaloff>:/Images/cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/add.png</normaloff>:/Images/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/delete.png</normaloff>:/Images/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/page_error.png</normaloff>:/Images/page_error.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/page_add.png</normaloff>:/Images/page_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </action>
+  <action name="actionSelect_None">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/page_delete.png</normaloff>:/Images/page_delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Select None</string>
+   </property>
+  </action>
+  <action name="actionUnchecked">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/pencil_delete.png</normaloff>:/Images/pencil_delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Unchecked</string>
+   </property>
+  </action>
+  <action name="actionParticually">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/pencil_go.png</normaloff>:/Images/pencil_go.png</iconset>
+   </property>
+   <property name="text">
+    <string>Particually</string>
+   </property>
+  </action>
+  <action name="actionChecked">
+   <property name="icon">
+    <iconset resource="SourceNgoc.qrc">
+     <normaloff>:/Images/pencil_add.png</normaloff>:/Images/pencil_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Checked</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="SourceNgoc.qrc"/>
+ </resources>
+ <connections/>
+</ui>
