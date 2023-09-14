@@ -50,16 +50,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>110</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
@@ -70,7 +60,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -137,43 +127,60 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>70</y>
-      <width>288</width>
-      <height>26</height>
+      <x>410</x>
+      <y>110</y>
+      <width>354</width>
+      <height>281</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="mouseControl">
-       <property name="text">
-        <string>Control Mouse</string>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="editCoordinates"/>
      </item>
      <item>
-      <widget class="QPushButton" name="addItem">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <selectedon>:/Images/add.png</selectedon>
-        </iconset>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="mouseControl">
+         <property name="text">
+          <string>Test Mouse</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addItem">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <selectedon>:/Images/add.png</selectedon>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRun">
+         <property name="text">
+          <string>Run</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>End</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="btnRun">
-       <property name="text">
-        <string>Run</string>
-       </property>
-      </widget>
+      <widget class="QListWidget" name="listWidget"/>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>End</string>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>

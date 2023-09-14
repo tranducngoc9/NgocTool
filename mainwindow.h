@@ -1,12 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCoreApplication>
+#include <QEvent>
+#include <QKeyEvent>
+
 #include <QMainWindow>
 #include <windows.h>
 #include <QDir>
 #include <QThread>
-#include "QFileDialog"
-#include "QDebug"
+#include <QFileDialog>
+#include <QDebug>
+#include <QAbstractButton>
+#include <QLineEdit>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +25,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void init();
+    void load();
+    void save();
+
+
 
 private slots:
 
@@ -35,8 +46,13 @@ private slots:
 
     void on_btnRun_clicked();
 
+    void on_buttonBox_clicked(QAbstractButton *button);
+
 private:
     bool isPress = false;
+    bool isRunningThread1 = false;
+    bool isRunningThread2 = false;
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H

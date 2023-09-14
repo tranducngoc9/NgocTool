@@ -1,23 +1,36 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QListWidget>
-#include <QListWidgetItem>
-//#include <QTextEdit>
-#include <QLineEdit>
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    init();
     qDebug()<< "Main thread: "<<QThread::currentThread();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::init()
+{
+    ui->buttonBox->addButton("Clear", QDialogButtonBox::ButtonRole::ActionRole); // Them nut clear vao trong combobox
+    ui->buttonBox->addButton("Remove", QDialogButtonBox::ButtonRole::ActionRole);
+    ui->buttonBox->addButton("Edit", QDialogButtonBox::ButtonRole::ActionRole);
+}
+
+void MainWindow::load()
+{
+
+}
+
+void MainWindow::save()
+{
+
 }
 
 
@@ -54,18 +67,21 @@ void MainWindow::on_mouseControl_clicked()
 void MainWindow::on_getPosMouse_clicked()
 {
     isPress = false;
+
     QThread * thread1 = QThread::create([=](){
         qDebug()<< "Runing thread 1: "<<QThread::currentThread();
+        isRunningThread1 = true;
         while(!isPress){
             int x =  QCursor::pos().x();
             int y = QCursor::pos().y();
             ui->labelCoordinates->setText( QString("(%1,%2)").arg(QString::number(x),QString::number(y) ));
             Sleep(100);
         }
+        isRunningThread1 = false;
         qDebug()<< "End thread 1: "<<QThread::currentThread();
     });
+    if(isRunningThread1 == false)thread1->start();
 
-    thread1->start();
 
 }
 
@@ -79,20 +95,88 @@ void MainWindow::on_quitGetPosition_clicked()
 
 void MainWindow::on_addItem_clicked()
 {
-    ui->listWidget->setFlow(QListView::LeftToRight);
-    ui->listWidget->setGridSize(QSize(110, 90));
-    ui->listWidget->setResizeMode(QListView::Adjust);
-    ui->listWidget->setViewMode(QListView::ListMode);
-    ui->listWidget->setWrapping(true);
-        auto    item = new QListWidgetItem("", ui->listWidget);
-        auto    text = new QLineEdit("");
-        text->setMinimumSize(100, 80);
-        ui->listWidget->setItemWidget(item, text);
+    QListWidgetItem * item = new QListWidgetItem(ui->editCoordinates->text(), ui->listWidget);
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemFlag::ItemIsEditable | Qt::ItemFlag::ItemIsTristate | Qt::ItemFlag::ItemIsUserCheckable | Qt::ItemIsSelectable);
+    ui->listWidget->addItem(item);
 }
 
 
 void MainWindow::on_btnRun_clicked()
 {
-    qDebug()<< ui->listWidget->takeItem(0)->data(2);
+
+
+    QThread * thread2 = QThread::create([=](){
+        qDebug()<< "Runing thread 2: "<<QThread::currentThread();
+        isRunningThread2 = true;
+
+
+        int flag = 1;
+        while(flag){
+            //Enter right shift to break loop
+            if (GetKeyState(VK_RSHIFT) & 0x8000)
+            {
+                flag = 0;
+                qDebug() << "Enter key pressed. Breaking the loop.";
+            }
+
+            int itemCount = ui->listWidget->count(); // Lấy số lượng mục trong QListWidget
+            int startX = 0; // Tọa độ X ban đầu
+            int startY = 0; // Tọa độ Y ban đầu
+            for (int i = 0; i < itemCount; ++i) {
+                QListWidgetItem *item = ui->listWidget->item(i); // Lấy mục thứ i
+                QStringList coordinates = item->text().split(",");
+                if( coordinates.size() == 2 ){
+                    int targetX = coordinates[0].toInt();
+                    int targetY = coordinates[1].toInt();
+                    qDebug() << "x:" << targetX << "y:" << targetY;
+                    int numSteps = 100; // Số bước di chuyển
+                    QCursor cursor;
+                    for (int i = 0; i <= numSteps; ++i) {
+                        int currentX = startX + (targetX - startX) * i / numSteps;
+                        int currentY = startY + (targetY - startY) * i / numSteps;
+                        cursor.setPos(currentX, currentY);
+                        Sleep(10); // Thời gian ngừng giữa các bước (milliseconds)
+                    }
+                    startX = targetX;
+                    startY = targetY;
+                }
+            }
+        }
+        isRunningThread2 = false;
+        qDebug()<< "End thread 2: "<<QThread::currentThread();
+    });
+    if(isRunningThread2 == false){
+        thread2->start();
+    }
+}
+
+
+void MainWindow::on_buttonBox_clicked(QAbstractButton *button)
+{
+    //    qDebug()<< button->text();
+    if(button->text().contains("OK")){
+        save();
+        //        accept();
+    }
+    if(button->text().contains("Cancel")){
+        //        reject();
+    }
+    if(button->text().contains("Clear")){
+        ui->listWidget->clear();
+        return;
+    }
+    if(button->text().contains("Remove")){
+        QList<QListWidgetItem*>  items = ui->listWidget->selectedItems();
+        foreach (QListWidgetItem * item, items) {
+            ui->listWidget->removeItemWidget(item);
+            delete item;
+        }
+    }
+    if(button->text().contains("Edit")){
+        QList<QListWidgetItem*>  items = ui->listWidget->selectedItems();
+        foreach (QListWidgetItem * item, items) {
+            item->setText("ngoc");
+        }
+    }
 }
 
