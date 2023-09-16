@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QAbstractButton>
 #include <QLineEdit>
+#include <iostream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
