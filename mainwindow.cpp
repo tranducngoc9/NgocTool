@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     init();
+    connect(ui->speed, &QSlider::valueChanged, this, &MainWindow::on_Label_Speed_Change);
     qDebug()<< "Main thread: "<<QThread::currentThread();
 }
 
@@ -16,21 +17,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_Label_Speed_Change(int value)
+{
+    ui->labelSpeed->setText(QString("Speed: %1").arg(QString::number(value)));
+}
+
 void MainWindow::init()
 {
     ui->buttonBox->addButton("Clear", QDialogButtonBox::ButtonRole::ActionRole); // Them nut clear vao trong combobox
     ui->buttonBox->addButton("Remove", QDialogButtonBox::ButtonRole::ActionRole);
 }
 
-void MainWindow::load()
-{
-
-}
-
-void MainWindow::save()
-{
-
-}
 
 
 
@@ -121,16 +118,23 @@ void MainWindow::on_btnRun_clicked()
         isRunningThread2 = true;
 
 
-
+        QString selectOption = "";
         int flag = 1;
         int startX = QCursor::pos().x(); // Tọa độ X ban đầu
         int startY = QCursor::pos().y(); // Tọa độ Y ban đầu
-
 
         while(flag){
 
             int itemCount = ui->listWidget->count(); // Lấy số lượng mục trong QListWidget
 
+
+            foreach (QRadioButton * opt, ui->optionsAuto->findChildren<QRadioButton(*)>(QString(),Qt::FindDirectChildrenOnly)) {
+                if(opt->isChecked()){
+                    selectOption = opt->text();
+                }
+            }
+
+            // Check if too few coordinates
             if( ui->listWidget->count() < 2 ){
                 break;
             }
@@ -149,7 +153,14 @@ void MainWindow::on_btnRun_clicked()
                         int currentX = startX + (targetX - startX) * i / numSteps;
                         int currentY = startY + (targetY - startY) * i / numSteps;
                         cursor.setPos(currentX, currentY);
-                        Sleep(10); // Thời gian ngừng giữa các bước (milliseconds)
+                        if (GetAsyncKeyState(VK_UP) & 0x8000){
+                            ui->speed->setValue( ui->speed->value() + 1);
+                        }
+                        else if(GetAsyncKeyState(VK_DOWN) & 0x8000 ){
+                            ui->speed->setValue( ui->speed->value() - 1);
+                        }
+                        ui->labelSpeed->setText(QString("Speed: %1").arg(QString::number(ui->speed->value())));
+                        Sleep(100 - ui->speed->value()); // Thời gian ngừng giữa các bước (milliseconds)/ Default = 10
                         //Enter right shift to break loop
                         if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
                         {
@@ -159,11 +170,25 @@ void MainWindow::on_btnRun_clicked()
                             break;
                         }
                     }
+                    if(selectOption == "Click"){
+                        // Simulate a left mouse button press at the specified coordinates
+                        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                        // Simulate a left mouse button release at the specified coordinates
+                        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                    }
+                    else if(selectOption == "Drag"){
+                        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                    }
+                    else{
+                        if (i%2 == 0){
+                            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
 
-                    // Simulate a left mouse button press at the specified coordinates
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                    // Simulate a left mouse button release at the specified coordinates
-                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                        }
+                        else{
+                            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                        }
+                    }
+
 
                     startX = targetX;
                     startY = targetY;

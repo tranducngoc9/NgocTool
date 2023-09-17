@@ -27,12 +27,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void init();
-    void load();
-    void save();
 
 
 
 private slots:
+
+    void on_Label_Speed_Change( int value );
 
     void on_actionOpen_triggered();
 
